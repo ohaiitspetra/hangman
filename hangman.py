@@ -13,19 +13,20 @@ def hang():
 
 
 def play():
-    guess = input(f'Choose a letter!:')
-    print(guess)
-    with open('words.csv') as file:
-        data = list(file)
-    word_list = [data[:-1] for word in data if word == data.lower() and len(word) > 4]
-    secret_word = random.choice(word_list)
-    progress = ['_' for letter in secret_word]
-    if guess in secret_word:
-        for idx, letter in enumerate(secret_word):
-            if letter == guess:
-                progress[idx] = guess
-    else:
-        return next(hang())
+
+        guess = input(f'Choose a letter!:')
+        print(guess)
+        with open('words.csv') as file:
+            data = list(file)
+            word_list = [data[:-1] for word in data if len(word) > 4]
+            secret_word = random.choice(word_list)
+            progress = ['_' for letter in secret_word]
+        if guess in secret_word:
+            for idx, letter in enumerate(secret_word):
+                if letter == guess:
+                    progress[idx] = guess
+        else:
+            return next(hang())
 
     # if all hangman parts are on the gallows:
     # print "Game over"
